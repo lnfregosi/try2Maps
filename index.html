@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="mapbox/mapbox-gl.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <style>
+        #map {
+            width: 918px;
+            height: 586px;
+        }
+        </style>
+        <title>Testing Map NordKivu</title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="./mapbox/mapbox-gl.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/adm3_0.js"></script>
+<script src="./mapbox/style.js"></script>
+<script src="./js/Autolinker.min.js"></script>
+<script>
+var map = new mapboxgl.Map({
+ container: 'map',
+ style: styleJSON,
+ center: [31.44998567977555,-0.6338687766292033],
+ zoom: 6,
+ bearing: 360.0,
+ attributionControl: false
+});
+map.addControl(new mapboxgl.NavigationControl());
+map.addControl(new mapboxgl.AttributionControl({
+    customAttribution: '<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://github.com/mapbox/mapbox-gl-js" target="_blank">Mapbox GL JS</a> &middot; <a href="https://qgis.org" target="_blank">QGIS</a>',
+    compact: false
+}));
+
+map.on('click', 'lyr_adm3_0_0', function (e) {
+    var description = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>adm0_nm</strong><br />' + (e.features[0].properties['adm0_nm'] !== null ? Autolinker.link(e.features[0].properties['adm0_nm'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>adm1_nm</strong><br />' + (e.features[0].properties['adm1_nm'] !== null ? Autolinker.link(e.features[0].properties['adm1_nm'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>adm2_nm</strong><br />' + (e.features[0].properties['adm2_nm'] !== null ? Autolinker.link(e.features[0].properties['adm2_nm'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>adm3_nm</strong><br />' + (e.features[0].properties['adm3_nm'] !== null ? Autolinker.link(e.features[0].properties['adm3_nm'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>dat_src</strong><br />' + (e.features[0].properties['dat_src'] !== null ? Autolinker.link(e.features[0].properties['dat_src'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>date_dt</strong><br />' + (e.features[0].properties['date_dt'] !== null ? Autolinker.link(e.features[0].properties['date_dt'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>id</strong><br />' + (e.features[0].properties['id'] !== null ? Autolinker.link(e.features[0].properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>area</strong><br />' + (e.features[0].properties['area'] !== null ? Autolinker.link(e.features[0].properties['area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>adm1_pc</strong><br />' + (e.features[0].properties['adm1_pc'] !== null ? Autolinker.link(e.features[0].properties['adm1_pc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>adm2_pc</strong><br />' + (e.features[0].properties['adm2_pc'] !== null ? Autolinker.link(e.features[0].properties['adm2_pc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>adm3_pc</strong><br />' + (e.features[0].properties['adm3_pc'] !== null ? Autolinker.link(e.features[0].properties['adm3_pc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>a3__201</strong><br />' + (e.features[0].properties['a3__201'] !== null ? Autolinker.link(e.features[0].properties['a3__201'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>'
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(description)
+        .addTo(map);
+});
+
+// Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'lyr_adm3_0_0', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'lyr_adm3_0_0', function () {
+    map.getCanvas().style.cursor = '';
+});
+</script>
+    </body>
+</html>
